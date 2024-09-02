@@ -1,0 +1,1037 @@
+|-- .env
+|-- .gitignore
+|-- Makefile
+|-- Pipfile
+|-- Pipfile.lock
+|-- README.md
+|-- chat_client.py
+|-- data
+    |-- dnd_srd
+        |-- Characterizations
+            |-- Alignment.md
+            |-- Backgrounds.md
+            |-- Beyond 1st Level.md
+            |-- Feats.md
+            |-- Inspiration.md
+            |-- Languages.md
+            |-- Multiclassing.md
+        |-- Classes
+            |-- Barbarian.md
+            |-- Bard.md
+            |-- Cleric.md
+            |-- Druid.md
+            |-- Fighter.md
+            |-- Monk.md
+            |-- Paladin.md
+            |-- Ranger.md
+            |-- Rogue.md
+            |-- Sorcerer.md
+            |-- Warlock.md
+            |-- Wizard.md
+        |-- Equipment
+            |-- Armor.md
+            |-- Coinage.md
+            |-- Expenses.md
+            |-- Gear.md
+            |-- Selling Treasure.md
+            |-- Tools.md
+            |-- Trade Goods.md
+            |-- Transportation.md
+            |-- Weapons.md
+        |-- Gamemastering
+            |-- Conditions.md
+            |-- Diseases.md
+            |-- Madness.md
+            |-- Objects.md
+            |-- Pantheons.md
+            |-- Planes.md
+            |-- Poisons.md
+            |-- Traps.md
+        |-- Monsters
+            |-- # Monster Statistics.md
+            |-- Aboleth.md
+            |-- Acolyte (NPC).md
+            |-- Adult Black Dragon (Chromatic).md
+            |-- Adult Blue Dragon (Chromatic).md
+            |-- Adult Brass Dragon (Metallic).md
+            |-- Adult Bronze Dragon (Metallic).md
+            |-- Adult Copper Dragon (Metallic).md
+            |-- Adult Gold Dragon (Metallic).md
+            |-- Adult Green Dragon (Chromatic).md
+            |-- Adult Red Dragon (Chromatic).md
+            |-- Adult Silver Dragon (Metallic).md
+            |-- Adult White Dragon (Chromatic).md
+            |-- Air Elemental.md
+            |-- Ancient Black Dragon (Chromatic).md
+            |-- Ancient Blue Dragon (Chromatic).md
+            |-- Ancient Brass Dragon (Metallic).md
+            |-- Ancient Bronze Dragon (Metallic).md
+            |-- Ancient Copper Dragon (Metallic).md
+            |-- Ancient Gold Dragon (Metallic).md
+            |-- Ancient Green Dragon (Chromatic).md
+            |-- Ancient Red Dragon (Chromatic).md
+            |-- Ancient Silver Dragon (Metallic).md
+            |-- Ancient White Dragon (Chromatic).md
+            |-- Androsphinx (Sphinx).md
+            |-- Animated Armor (Animated Object).md
+            |-- Ankheg.md
+            |-- Ape (Creature).md
+            |-- Archmage (NPC).md
+            |-- Assassin (NPC).md
+            |-- Awakened Shrub (Creature).md
+            |-- Awakened Tree (Creature).md
+            |-- Axe Beak (Creature).md
+            |-- Azer.md
+            |-- Baboon (Creature).md
+            |-- Badger (Creature).md
+            |-- Balor (Demon).md
+            |-- Bandit (NPC).md
+            |-- Bandit Captain (NPC).md
+            |-- Barbed Devil (Devil).md
+            |-- Basilisk.md
+            |-- Bat (Creature).md
+            |-- Bearded Devil (Devil).md
+            |-- Behir.md
+            |-- Berserker (NPC).md
+            |-- Black Bear (Creature).md
+            |-- Black Pudding (Ooze).md
+            |-- Blink Dog (Creature).md
+            |-- Blood Hawk (Creature).md
+            |-- Boar (Creature).md
+            |-- Bone Devil (Devil).md
+            |-- Brown Bear (Creature).md
+            |-- Bugbear.md
+            |-- Bulette.md
+            |-- Camel (Creature).md
+            |-- Cat (Creature).md
+            |-- Centaur.md
+            |-- Chain Devil (Devil).md
+            |-- Chimera.md
+            |-- Chuul.md
+            |-- Clay Golem.md
+            |-- Cloaker.md
+            |-- Cloud Giant (Giant).md
+            |-- Cockatrice.md
+            |-- Commoner (NPC).md
+            |-- Constrictor Snake (Creature).md
+            |-- Couatl.md
+            |-- Crab (Creature).md
+            |-- Crocodile (Creature).md
+            |-- Cult Fanatic (NPC).md
+            |-- Cultist (NPC).md
+            |-- Customizing NPCs (NPC).md
+            |-- Darkmantle.md
+            |-- Death Dog (Creature).md
+            |-- Deer (Creature).md
+            |-- Deva (Angel).md
+            |-- Dire Wolf (Creature).md
+            |-- Djinni (Genie).md
+            |-- Doppelganger.md
+            |-- Draft Horse (Creature).md
+            |-- Dragon Turtle.md
+            |-- Dretch (Demon).md
+            |-- Drider.md
+            |-- Druid (NPC).md
+            |-- Dryad.md
+            |-- Duergar.md
+            |-- Dust Mephit.md
+            |-- Eagle (Creature).md
+            |-- Earth Elemental.md
+            |-- Efreeti (Genie).md
+            |-- Elephant (Creature).md
+            |-- Elf, Drow.md
+            |-- Elk (Creature).md
+            |-- Erinyes (Devil).md
+            |-- Ettercap.md
+            |-- Ettin.md
+            |-- Fire Elemental.md
+            |-- Fire Giant (Giant).md
+            |-- Flesh Golem.md
+            |-- Flying Snake (Creature).md
+            |-- Flying Sword (Animated Object).md
+            |-- Frog (Creature).md
+            |-- Frost Giant (Giant).md
+            |-- Gargoyle.md
+            |-- Gelatinous Cube (Ooze).md
+            |-- Ghast (Ghoul).md
+            |-- Ghost.md
+            |-- Ghoul.md
+            |-- Giant Ape (Creature).md
+            |-- Giant Badger (Creature).md
+            |-- Giant Bat (Creature).md
+            |-- Giant Boar (Creature).md
+            |-- Giant Centipede (Creature).md
+            |-- Giant Constrictor Snake (Creature).md
+            |-- Giant Crab (Creature).md
+            |-- Giant Crocodile (Creature).md
+            |-- Giant Eagle (Creature).md
+            |-- Giant Elk (Creature).md
+            |-- Giant Fire Beetle (Creature).md
+            |-- Giant Frog (Creature).md
+            |-- Giant Goat (Creature).md
+            |-- Giant Hyena (Creature).md
+            |-- Giant Lizard (Creature).md
+            |-- Giant Octopus (Creature).md
+            |-- Giant Owl (Creature).md
+            |-- Giant Poisonous Snake (Creature).md
+            |-- Giant Rat (Creature).md
+            |-- Giant Scorpion (Creature).md
+            |-- Giant Sea Horse (Creature).md
+            |-- Giant Shark (Creature).md
+            |-- Giant Spider (Creature).md
+            |-- Giant Toad (Creature).md
+            |-- Giant Vulture (Creature).md
+            |-- Giant Wasp (Creature).md
+            |-- Giant Weasel (Creature).md
+            |-- Giant Wolf Spider (Creature).md
+            |-- Gibbering Mouther.md
+            |-- Glabrezu (Demon).md
+            |-- Gladiator (NPC).md
+            |-- Gnoll.md
+            |-- Gnome, Deep (Svirfneblin).md
+            |-- Goat (Creature).md
+            |-- Goblin.md
+            |-- Gorgon.md
+            |-- Gray Ooze.md
+            |-- Green Hag.md
+            |-- Grick.md
+            |-- Griffon.md
+            |-- Grimlock.md
+            |-- Guard (NPC).md
+            |-- Guardian Naga.md
+            |-- Gynosphinx (Sphinx).md
+            |-- Half-Dragon Template.md
+            |-- Harpy.md
+            |-- Hawk (Creature).md
+            |-- Hell Hound.md
+            |-- Hezrou (Demon).md
+            |-- Hill Giant (Giant).md
+            |-- Hippogriff.md
+            |-- Hobgoblin.md
+            |-- Homunculus.md
+            |-- Horned Devil.md
+            |-- Hunter Shark (Creature).md
+            |-- Hydra.md
+            |-- Hyena (Creature).md
+            |-- Ice Devil (Devil).md
+            |-- Ice Mephit.md
+            |-- Imp (Devil).md
+            |-- Invisible Stalker.md
+            |-- Iron Golem.md
+            |-- Jackal (Creature).md
+            |-- Killer Whale (Creature).md
+            |-- Knight (NPC).md
+            |-- Kobold.md
+            |-- Kraken.md
+            |-- Lamia.md
+            |-- Lemure (Devil).md
+            |-- Lich.md
+            |-- Lion (Creature).md
+            |-- Lizard (Creature).md
+            |-- Lizardfolk.md
+            |-- Mage (NPC).md
+            |-- Magma Mephit.md
+            |-- Magmin.md
+            |-- Mammoth (Creature).md
+            |-- Manticore.md
+            |-- Marilith (Demon).md
+            |-- Mastiff (Creature).md
+            |-- Medusa.md
+            |-- Merfolk.md
+            |-- Merrow.md
+            |-- Mimic.md
+            |-- Minotaur Skeleton.md
+            |-- Minotaur.md
+            |-- Mule (Creature).md
+            |-- Mummy Lord.md
+            |-- Mummy.md
+            |-- Nalfeshnee (Demon).md
+            |-- Night Hag.md
+            |-- Nightmare.md
+            |-- Noble (NPC).md
+            |-- Ochre Jelly (Ooze).md
+            |-- Octopus (Creature).md
+            |-- Ogre Zombie.md
+            |-- Ogre.md
+            |-- Oni.md
+            |-- Orc.md
+            |-- Otyugh.md
+            |-- Owl (Creature).md
+            |-- Owlbear.md
+            |-- Panther (Creature).md
+            |-- Pegasus.md
+            |-- Phase Spider (Creature).md
+            |-- Pit Fiend (Devil).md
+            |-- Planetar (Angel).md
+            |-- Plesiosaurus (Dinosaur).md
+            |-- Poisonous Snake (Creature).md
+            |-- Polar Bear (Creature).md
+            |-- Pony (Creature).md
+            |-- Priest (NPC).md
+            |-- Pseudodragon.md
+            |-- Purple Worm.md
+            |-- Quasit (Demon).md
+            |-- Quipper (Creature).md
+            |-- Rakshasa.md
+            |-- Rat (Creature).md
+            |-- Raven (Creature).md
+            |-- Reef Shark (Creature).md
+            |-- Remorhaz.md
+            |-- Rhinoceros (Creature).md
+            |-- Riding Horse (Creature).md
+            |-- Roc.md
+            |-- Roper.md
+            |-- Rug of Smothering (Animated Object).md
+            |-- Rust Monster.md
+            |-- Saber-Toothed Tiger (Creature).md
+            |-- Sahuagin.md
+            |-- Salamander.md
+            |-- Satyr.md
+            |-- Scorpion (Creature).md
+            |-- Scout (NPC).md
+            |-- Sea Hag.md
+            |-- Sea Horse (Creature).md
+            |-- Shadow.md
+            |-- Shambling Mound.md
+            |-- Shield Guardian.md
+            |-- Shrieker (Fungi).md
+            |-- Skeleton.md
+            |-- Solar (Angel).md
+            |-- Specter.md
+            |-- Spider (Creature).md
+            |-- Spirit Naga.md
+            |-- Sprite.md
+            |-- Spy (NPC).md
+            |-- Steam Mephit.md
+            |-- Stirge.md
+            |-- Stone Giant (Giant).md
+            |-- Stone Golem.md
+            |-- Storm Giant (Giant).md
+            |-- Succubus-Incubus.md
+            |-- Swarm of Bats (Creature).md
+            |-- Swarm of Insects (Creature).md
+            |-- Swarm of Poisonous Snakes (Creature).md
+            |-- Swarm of Quippers (Creature).md
+            |-- Swarm of Rats (Creature).md
+            |-- Swarm of Ravens (Creature).md
+            |-- Tarrasque.md
+            |-- Thug (NPC).md
+            |-- Tiger (Creature).md
+            |-- Treant.md
+            |-- Tribal Warrior (NPC).md
+            |-- Triceratops (Dinosaur).md
+            |-- Troll.md
+            |-- Tyrannosaurus Rex (Dinosaur).md
+            |-- Unicorn.md
+            |-- Vampire Spawn.md
+            |-- Vampire.md
+            |-- Veteran (NPC).md
+            |-- Violet Fungus (Fungi).md
+            |-- Vrock (Demon).md
+            |-- Vulture (Creature).md
+            |-- Warhorse (Creature).md
+            |-- Warhorse Skeleton.md
+            |-- Water Elemental.md
+            |-- Weasel (Creature).md
+            |-- Werebear (Lycanthrope).md
+            |-- Wereboar (Lycanthrope).md
+            |-- Wererat (Lycanthrope).md
+            |-- Weretiger (Lycanthrope).md
+            |-- Werewolf (Lycanthrope).md
+            |-- Wight.md
+            |-- Will-o'-Wisp.md
+            |-- Winter Wolf (Creature).md
+            |-- Wolf (Creature).md
+            |-- Worg (Creature).md
+            |-- Wraith.md
+            |-- Wyrmling Black Dragon (Chromatic).md
+            |-- Wyrmling Blue Dragon (Chromatic).md
+            |-- Wyrmling Brass Dragon (Metallic).md
+            |-- Wyrmling Bronze Dragon (Metallic).md
+            |-- Wyrmling Copper Dragon (Metallic).md
+            |-- Wyrmling Gold Dragon (Metallic).md
+            |-- Wyrmling Green Dragon (Chromatic).md
+            |-- Wyrmling Red Dragon (Chromatic).md
+            |-- Wyrmling Silver Dragon (Metallic).md
+            |-- Wyrmling White Dragon (Chromatic).md
+            |-- Wyvern.md
+            |-- Xorn.md
+            |-- Young Black Dragon (Chromatic).md
+            |-- Young Blue Dragon (Chromatic).md
+            |-- Young Brass Dragon (Metallic).md
+            |-- Young Bronze Dragon (Metallic).md
+            |-- Young Copper Dragon (Metallic).md
+            |-- Young Gold Dragon (Metallic).md
+            |-- Young Green Dragon (Chromatic).md
+            |-- Young Red Dragon (Chromatic).md
+            |-- Young Silver Dragon (Metallic).md
+            |-- Young White Dragon (Chromatic).md
+            |-- Zombie.md
+        |-- Races
+            |-- # Racial Traits.md
+            |-- Dragonborn.md
+            |-- Dwarf.md
+            |-- Elf.md
+            |-- Gnome.md
+            |-- Half-Elf.md
+            |-- Half-Orc.md
+            |-- Halfling.md
+            |-- Human.md
+            |-- Tiefling.md
+        |-- Spells
+            |-- # Spellcasting.md
+            |-- ## Spell Lists (Wikilinked).md
+            |-- ## Spell Lists.md
+            |-- Acid Arrow.md
+            |-- Acid Splash.md
+            |-- Aid.md
+            |-- Alarm.md
+            |-- Alter Self.md
+            |-- Animal Friendship.md
+            |-- Animal Messenger.md
+            |-- Animal Shapes.md
+            |-- Animate Dead.md
+            |-- Animate Objects.md
+            |-- Antilife Shell.md
+            |-- Antimagic Field.md
+            |-- Antipathy-Sympathy.md
+            |-- Arcane Eye.md
+            |-- Arcane Hand.md
+            |-- Arcane Lock.md
+            |-- Arcane Sword.md
+            |-- Arcanist's Magic Aura.md
+            |-- Astral Projection.md
+            |-- Augury.md
+            |-- Awaken.md
+            |-- Bane.md
+            |-- Banishment.md
+            |-- Barkskin.md
+            |-- Beacon of Hope.md
+            |-- Bestow Curse.md
+            |-- Black Tentacles.md
+            |-- Blade Barrier.md
+            |-- Bless.md
+            |-- Blight.md
+            |-- Blindness-Deafness.md
+            |-- Blink.md
+            |-- Blur.md
+            |-- Branding Smite.md
+            |-- Burning Hands.md
+            |-- Call Lightning.md
+            |-- Calm Emotions.md
+            |-- Chain Lightning.md
+            |-- Charm Person.md
+            |-- Chill Touch.md
+            |-- Circle of Death.md
+            |-- Clairvoyance.md
+            |-- Clone.md
+            |-- Cloudkill.md
+            |-- Color Spray.md
+            |-- Command.md
+            |-- Commune with Nature.md
+            |-- Commune.md
+            |-- Comprehend Languages.md
+            |-- Compulsion.md
+            |-- Cone of Cold.md
+            |-- Confusion.md
+            |-- Conjure Animals.md
+            |-- Conjure Celestial.md
+            |-- Conjure Elemental.md
+            |-- Conjure Fey.md
+            |-- Conjure Minor Elementals.md
+            |-- Conjure Woodland Beings.md
+            |-- Contact Other Plane.md
+            |-- Contagion.md
+            |-- Contingency.md
+            |-- Continual Flame.md
+            |-- Control Water.md
+            |-- Control Weather.md
+            |-- Counterspell.md
+            |-- Create Food and Water.md
+            |-- Create Undead.md
+            |-- Create or Destroy Water.md
+            |-- Creation.md
+            |-- Cure Wounds.md
+            |-- Dancing Lights.md
+            |-- Darkness.md
+            |-- Darkvision.md
+            |-- Daylight.md
+            |-- Death Ward.md
+            |-- Delayed Blast Fireball.md
+            |-- Demiplane.md
+            |-- Detect Evil and Good.md
+            |-- Detect Magic.md
+            |-- Detect Poison and Disease.md
+            |-- Detect Thoughts.md
+            |-- Dimension Door.md
+            |-- Disguise Self.md
+            |-- Disintegrate.md
+            |-- Dispel Evil and Good.md
+            |-- Dispel Magic.md
+            |-- Divination.md
+            |-- Divine Favor.md
+            |-- Divine Word.md
+            |-- Dominate Beast.md
+            |-- Dominate Monster.md
+            |-- Dominate Person.md
+            |-- Dream.md
+            |-- Druidcraft.md
+            |-- Earthquake.md
+            |-- Eldritch Blast.md
+            |-- Enhance Ability.md
+            |-- Enlarge-Reduce.md
+            |-- Entangle.md
+            |-- Enthrall.md
+            |-- Etherealness.md
+            |-- Expeditious Retreat.md
+            |-- Eyebite.md
+            |-- Fabricate.md
+            |-- Faerie Fire.md
+            |-- Faithful Hound.md
+            |-- False Life.md
+            |-- Fear.md
+            |-- Feather Fall.md
+            |-- Feeblemind.md
+            |-- Find Familiar.md
+            |-- Find Steed.md
+            |-- Find Traps.md
+            |-- Find the Path.md
+            |-- Finger of Death.md
+            |-- Fire Bolt.md
+            |-- Fire Shield.md
+            |-- Fire Storm.md
+            |-- Fireball.md
+            |-- Flame Blade.md
+            |-- Flame Strike.md
+            |-- Flaming Sphere.md
+            |-- Flesh to Stone.md
+            |-- Floating Disk.md
+            |-- Fly.md
+            |-- Fog Cloud.md
+            |-- Forbiddance.md
+            |-- Forcecage.md
+            |-- Foresight.md
+            |-- Freedom of Movement.md
+            |-- Freezing Sphere.md
+            |-- Gaseous Form.md
+            |-- Gate.md
+            |-- Geas.md
+            |-- Gentle Repose.md
+            |-- Giant Insect.md
+            |-- Glibness.md
+            |-- Globe of Invulnerability.md
+            |-- Glyph of Warding.md
+            |-- Goodberry.md
+            |-- Grease.md
+            |-- Greater Invisibility.md
+            |-- Greater Restoration.md
+            |-- Guardian of Faith.md
+            |-- Guards and Wards.md
+            |-- Guidance.md
+            |-- Guiding Bolt.md
+            |-- Gust of Wind.md
+            |-- Hallow.md
+            |-- Hallucinatory Terrain.md
+            |-- Harm.md
+            |-- Haste.md
+            |-- Heal.md
+            |-- Healing Word.md
+            |-- Heat Metal.md
+            |-- Hellish Rebuke.md
+            |-- Heroes' Feast.md
+            |-- Heroism.md
+            |-- Hideous Laughter.md
+            |-- Hold Monster.md
+            |-- Hold Person.md
+            |-- Holy Aura.md
+            |-- Hunter's Mark.md
+            |-- Hypnotic Pattern.md
+            |-- Ice Storm.md
+            |-- Identify.md
+            |-- Illusory Script.md
+            |-- Imprisonment.md
+            |-- Incendiary Cloud.md
+            |-- Inflict Wounds.md
+            |-- Insect Plague.md
+            |-- Instant Summons.md
+            |-- Invisibility.md
+            |-- Irresistible Dance.md
+            |-- Jump.md
+            |-- Knock.md
+            |-- Legend Lore.md
+            |-- Lesser Restoration.md
+            |-- Levitate.md
+            |-- Light.md
+            |-- Lightning Bolt.md
+            |-- Locate Animals or Plants.md
+            |-- Locate Creature.md
+            |-- Locate Object.md
+            |-- Longstrider.md
+            |-- Mage Armor.md
+            |-- Mage Hand.md
+            |-- Magic Circle.md
+            |-- Magic Jar.md
+            |-- Magic Missile.md
+            |-- Magic Mouth.md
+            |-- Magic Weapon.md
+            |-- Magnificent Mansion.md
+            |-- Major Image.md
+            |-- Mass Cure Wounds.md
+            |-- Mass Heal.md
+            |-- Mass Healing Word.md
+            |-- Mass Suggestion.md
+            |-- Maze.md
+            |-- Meld into Stone.md
+            |-- Mending.md
+            |-- Message.md
+            |-- Meteor Swarm.md
+            |-- Mind Blank.md
+            |-- Minor Illusion.md
+            |-- Mirage Arcane.md
+            |-- Mirror Image.md
+            |-- Mislead.md
+            |-- Misty Step.md
+            |-- Modify Memory.md
+            |-- Moonbeam.md
+            |-- Move Earth.md
+            |-- Nondetection.md
+            |-- Pass without Trace.md
+            |-- Passwall.md
+            |-- Phantasmal Killer.md
+            |-- Phantom Steed.md
+            |-- Planar Ally.md
+            |-- Planar Binding.md
+            |-- Plane Shift.md
+            |-- Plant Growth.md
+            |-- Poison Spray.md
+            |-- Polymorph.md
+            |-- Power Word Kill.md
+            |-- Power Word Stun.md
+            |-- Prayer of Healing.md
+            |-- Prestidigitation.md
+            |-- Prismatic Spray.md
+            |-- Prismatic Wall.md
+            |-- Private Sanctum.md
+            |-- Produce Flame.md
+            |-- Programmed Illusion.md
+            |-- Project Image.md
+            |-- Protection from Energy.md
+            |-- Protection from Evil and Good.md
+            |-- Protection from Poison.md
+            |-- Purify Food and Drink.md
+            |-- Raise Dead.md
+            |-- Ray of Enfeeblement.md
+            |-- Ray of Frost.md
+            |-- Regenerate.md
+            |-- Reincarnate.md
+            |-- Remove Curse.md
+            |-- Resilient Sphere.md
+            |-- Resistance.md
+            |-- Resurrection.md
+            |-- Reverse Gravity.md
+            |-- Revivify.md
+            |-- Rope Trick.md
+            |-- Sacred Flame.md
+            |-- Sanctuary.md
+            |-- Scorching Ray.md
+            |-- Scrying.md
+            |-- Secret Chest.md
+            |-- See Invisibility.md
+            |-- Seeming.md
+            |-- Sending.md
+            |-- Sequester.md
+            |-- Shapechange.md
+            |-- Shatter.md
+            |-- Shield of Faith.md
+            |-- Shield.md
+            |-- Shillelagh.md
+            |-- Shocking Grasp.md
+            |-- Silence.md
+            |-- Silent Image.md
+            |-- Simulacrum.md
+            |-- Sleep.md
+            |-- Sleet Storm.md
+            |-- Slow.md
+            |-- Spare the Dying.md
+            |-- Speak with Animals.md
+            |-- Speak with Dead.md
+            |-- Speak with Plants.md
+            |-- Spider Climb.md
+            |-- Spike Growth.md
+            |-- Spirit Guardians.md
+            |-- Spiritual Weapon.md
+            |-- Stinking Cloud.md
+            |-- Stone Shape.md
+            |-- Stoneskin.md
+            |-- Storm of Vengeance.md
+            |-- Suggestion.md
+            |-- Sunbeam.md
+            |-- Sunburst.md
+            |-- Symbol.md
+            |-- Telekinesis.md
+            |-- Telepathic Bond.md
+            |-- Teleport.md
+            |-- Teleportation Circle.md
+            |-- Thaumaturgy.md
+            |-- Thunderwave.md
+            |-- Time Stop.md
+            |-- Tiny Hut.md
+            |-- Tongues.md
+            |-- Transport via Plants.md
+            |-- Tree Stride.md
+            |-- True Polymorph.md
+            |-- True Resurrection.md
+            |-- True Seeing.md
+            |-- True Strike.md
+            |-- Unseen Servant.md
+            |-- Vampiric Touch.md
+            |-- Vicious Mockery.md
+            |-- Wall of Fire.md
+            |-- Wall of Force.md
+            |-- Wall of Ice.md
+            |-- Wall of Stone.md
+            |-- Wall of Thorns.md
+            |-- Warding Bond.md
+            |-- Water Breathing.md
+            |-- Water Walk.md
+            |-- Web.md
+            |-- Weird.md
+            |-- Wind Walk.md
+            |-- Wind Wall.md
+            |-- Wish.md
+            |-- Word of Recall.md
+            |-- Zone of Truth.md
+        |-- Spells (Alt)
+            |-- # Spellcasting.md
+            |-- ## Spell Lists.md
+            |-- Spells A.md
+            |-- Spells B.md
+            |-- Spells C.md
+            |-- Spells D.md
+            |-- Spells E.md
+            |-- Spells F.md
+            |-- Spells G.md
+            |-- Spells H.md
+            |-- Spells I.md
+            |-- Spells J.md
+            |-- Spells K.md
+            |-- Spells L.md
+            |-- Spells M.md
+            |-- Spells N.md
+            |-- Spells O.md
+            |-- Spells P.md
+            |-- Spells Q.md
+            |-- Spells R.md
+            |-- Spells S.md
+            |-- Spells T.md
+            |-- Spells U.md
+            |-- Spells V.md
+            |-- Spells W.md
+            |-- Spells X.md
+            |-- Spells Y.md
+            |-- Spells Z.md
+        |-- Treasure
+            |-- # Magic Items.md
+            |-- ## Artifacts.md
+            |-- ## Sentient Magic.md
+            |-- Adamantine Armor.md
+            |-- Ammunition, +1, +2, or +3.md
+            |-- Amulet of Health.md
+            |-- Amulet of Proof Against Detection and Location.md
+            |-- Amulet of the Planes.md
+            |-- Animated Shield.md
+            |-- Apparatus of the Crab.md
+            |-- Armor of Invulnerability.md
+            |-- Armor of Resistance.md
+            |-- Armor of Vulnerability.md
+            |-- Armor, +1, +2, or +3.md
+            |-- Arrow of Slaying.md
+            |-- Arrow-Catching Shield.md
+            |-- Bag of Beans.md
+            |-- Bag of Devouring.md
+            |-- Bag of Holding.md
+            |-- Bag of Tricks.md
+            |-- Bead of Force.md
+            |-- Belt of Dwarvenkind.md
+            |-- Belt of Giant Strength.md
+            |-- Berserker Axe.md
+            |-- Boots of Elvenkind.md
+            |-- Boots of Levitation.md
+            |-- Boots of Speed.md
+            |-- Boots of Striding and Springing.md
+            |-- Boots of the Winterlands.md
+            |-- Bowl of Commanding Water Elementals.md
+            |-- Bracers of Archery.md
+            |-- Bracers of Defense.md
+            |-- Brazier of Commanding Fire Elementals.md
+            |-- Brooch of Shielding.md
+            |-- Broom of Flying.md
+            |-- Candle of Invocation.md
+            |-- Cape of the Mountebank.md
+            |-- Carpet of Flying.md
+            |-- Censer of Controlling Air Elementals.md
+            |-- Chime of Opening.md
+            |-- Circlet of Blasting.md
+            |-- Cloak of Arachnida.md
+            |-- Cloak of Displacement.md
+            |-- Cloak of Elvenkind.md
+            |-- Cloak of Protection.md
+            |-- Cloak of the Bat.md
+            |-- Cloak of the Manta Ray.md
+            |-- Crystal Ball.md
+            |-- Cube of Force.md
+            |-- Cubic Gate.md
+            |-- Dagger of Venom.md
+            |-- Dancing Sword.md
+            |-- Decanter of Endless Water.md
+            |-- Deck of Illusions.md
+            |-- Deck of Many Things.md
+            |-- Defender.md
+            |-- Demon Armor.md
+            |-- Dimensional Shackles.md
+            |-- Dragon Scale Mail.md
+            |-- Dragon Slayer.md
+            |-- Dust of Disappearance.md
+            |-- Dust of Dryness.md
+            |-- Dust of Sneezing and Choking.md
+            |-- Dwarven Plate.md
+            |-- Dwarven Thrower.md
+            |-- Efficient Quiver.md
+            |-- Efreeti Bottle.md
+            |-- Elemental Gem.md
+            |-- Elven Chain.md
+            |-- Eversmoking Bottle.md
+            |-- Eyes of Charming.md
+            |-- Eyes of Minute Seeing.md
+            |-- Eyes of the Eagle.md
+            |-- Feather Token.md
+            |-- Figurine of Wondrous Power.md
+            |-- Flame Tongue.md
+            |-- Folding Boat.md
+            |-- Frost Brand.md
+            |-- Gauntlets of Ogre Power.md
+            |-- Gem of Brightness.md
+            |-- Gem of Seeing.md
+            |-- Giant Slayer.md
+            |-- Glamoured Studded Leather.md
+            |-- Gloves of Missile Snaring.md
+            |-- Gloves of Swimming and Climbing.md
+            |-- Goggles of Night.md
+            |-- Hammer of Thunderbolts.md
+            |-- Handy Haversack.md
+            |-- Hat of Disguise.md
+            |-- Headband of Intellect.md
+            |-- Helm of Brilliance.md
+            |-- Helm of Comprehending Languages.md
+            |-- Helm of Telepathy.md
+            |-- Helm of Teleportation.md
+            |-- Holy Avenger.md
+            |-- Horn of Blasting.md
+            |-- Horn of Valhalla.md
+            |-- Horseshoes of Speed.md
+            |-- Horseshoes of a Zephyr.md
+            |-- Immovable Rod.md
+            |-- Instant Fortress.md
+            |-- Ioun Stone.md
+            |-- Iron Bands of Binding.md
+            |-- Iron Flask.md
+            |-- Javelin of Lightning.md
+            |-- Lantern of Revealing.md
+            |-- Luck Blade.md
+            |-- Mace of Disruption.md
+            |-- Mace of Smiting.md
+            |-- Mace of Terror.md
+            |-- Mantle of Spell Resistance.md
+            |-- Manual of Bodily Health.md
+            |-- Manual of Gainful Exercise.md
+            |-- Manual of Golems.md
+            |-- Manual of Quickness of Action.md
+            |-- Marvelous Pigments.md
+            |-- Medallion of Thoughts.md
+            |-- Mirror of Life Trapping.md
+            |-- Mithral Armor.md
+            |-- Necklace of Adaptation.md
+            |-- Necklace of Fireballs.md
+            |-- Necklace of Prayer Beads.md
+            |-- Nine Lives Stealer.md
+            |-- Oathbow.md
+            |-- Oil of Etherealness.md
+            |-- Oil of Sharpness.md
+            |-- Oil of Slipperiness.md
+            |-- Pearl of Power.md
+            |-- Periapt of Health.md
+            |-- Periapt of Proof against Poison.md
+            |-- Periapt of Wound Closure.md
+            |-- Philter of Love.md
+            |-- Pipes of Haunting.md
+            |-- Pipes of the Sewers.md
+            |-- Plate Armor of Etherealness.md
+            |-- Portable Hole.md
+            |-- Potion of Animal Friendship.md
+            |-- Potion of Clairvoyance.md
+            |-- Potion of Climbing.md
+            |-- Potion of Diminution.md
+            |-- Potion of Flying.md
+            |-- Potion of Gaseous Form.md
+            |-- Potion of Giant Strength.md
+            |-- Potion of Growth.md
+            |-- Potion of Healing.md
+            |-- Potion of Heroism.md
+            |-- Potion of Invisibility.md
+            |-- Potion of Mind Reading.md
+            |-- Potion of Poison.md
+            |-- Potion of Resistance.md
+            |-- Potion of Speed.md
+            |-- Potion of Water Breathing.md
+            |-- Restorative Ointment.md
+            |-- Ring of Animal Influence.md
+            |-- Ring of Djinni Summoning.md
+            |-- Ring of Elemental Command.md
+            |-- Ring of Evasion.md
+            |-- Ring of Feather Falling.md
+            |-- Ring of Free Action.md
+            |-- Ring of Invisibility.md
+            |-- Ring of Jumping.md
+            |-- Ring of Mind Shielding.md
+            |-- Ring of Protection.md
+            |-- Ring of Regeneration.md
+            |-- Ring of Resistance.md
+            |-- Ring of Shooting Stars.md
+            |-- Ring of Spell Storing.md
+            |-- Ring of Spell Turning.md
+            |-- Ring of Swimming.md
+            |-- Ring of Telekinesis.md
+            |-- Ring of Three Wishes.md
+            |-- Ring of Warmth.md
+            |-- Ring of Water Walking.md
+            |-- Ring of X-ray Vision.md
+            |-- Ring of the Ram.md
+            |-- Robe of Eyes.md
+            |-- Robe of Scintillating Colors.md
+            |-- Robe of Stars.md
+            |-- Robe of Useful Items.md
+            |-- Robe of the Archmagi.md
+            |-- Rod of Absorption.md
+            |-- Rod of Alertness.md
+            |-- Rod of Lordly Might.md
+            |-- Rod of Rulership.md
+            |-- Rod of Security.md
+            |-- Rope of Climbing.md
+            |-- Rope of Entanglement.md
+            |-- Scarab of Protection.md
+            |-- Scimitar of Speed.md
+            |-- Shield of Missile Attraction.md
+            |-- Shield, +1, +2, or +3.md
+            |-- Slippers of Spider Climbing.md
+            |-- Sovereign Glue.md
+            |-- Spell Scroll.md
+            |-- Spellguard Shield.md
+            |-- Sphere of Annihilation.md
+            |-- Staff of Charming.md
+            |-- Staff of Fire.md
+            |-- Staff of Frost.md
+            |-- Staff of Healing.md
+            |-- Staff of Power.md
+            |-- Staff of Striking.md
+            |-- Staff of Swarming Insects.md
+            |-- Staff of Thunder and Lightning.md
+            |-- Staff of Withering.md
+            |-- Staff of the Magi.md
+            |-- Staff of the Python.md
+            |-- Staff of the Woodlands.md
+            |-- Stone of Controlling Earth Elementals.md
+            |-- Stone of Good Luck (Luckstone).md
+            |-- Sun Blade.md
+            |-- Sword of Life Stealing.md
+            |-- Sword of Sharpness.md
+            |-- Sword of Wounding.md
+            |-- Talisman of Pure Good.md
+            |-- Talisman of Ultimate Evil.md
+            |-- Talisman of the Sphere.md
+            |-- Tome of Clear Thought.md
+            |-- Tome of Leadership and Influence.md
+            |-- Tome of Understanding.md
+            |-- Trident of Fish Command.md
+            |-- Universal Solvent.md
+            |-- Vicious Weapon.md
+            |-- Vorpal Sword.md
+            |-- Wand of Binding.md
+            |-- Wand of Enemy Detection.md
+            |-- Wand of Fear.md
+            |-- Wand of Fireballs.md
+            |-- Wand of Lightning Bolts.md
+            |-- Wand of Magic Detection.md
+            |-- Wand of Magic Missiles.md
+            |-- Wand of Paralysis.md
+            |-- Wand of Polymorph.md
+            |-- Wand of Secrets.md
+            |-- Wand of Web.md
+            |-- Wand of Wonder.md
+            |-- Wand of the War Mage, +1, +2, or +3.md
+            |-- Weapon, +1, +2, or +3.md
+            |-- Well of Many Worlds.md
+            |-- Wind Fan.md
+            |-- Winged Boots.md
+            |-- Wings of Flying.md
+        |-- Treasure (Alt)
+            |-- # Magic Items.md
+            |-- ## Artifacts.md
+            |-- ## Sentient Magic.md
+            |-- Magic Items A.md
+            |-- Magic Items B.md
+            |-- Magic Items C.md
+            |-- Magic Items D.md
+            |-- Magic Items E.md
+            |-- Magic Items F.md
+            |-- Magic Items G.md
+            |-- Magic Items H.md
+            |-- Magic Items I.md
+            |-- Magic Items J.md
+            |-- Magic Items K.md
+            |-- Magic Items L.md
+            |-- Magic Items M.md
+            |-- Magic Items N.md
+            |-- Magic Items O.md
+            |-- Magic Items P.md
+            |-- Magic Items Q.md
+            |-- Magic Items R.md
+            |-- Magic Items S.md
+            |-- Magic Items T.md
+            |-- Magic Items U.md
+            |-- Magic Items V.md
+            |-- Magic Items W.md
+            |-- Magic Items X.md
+            |-- Magic Items Y.md
+            |-- Magic Items Z.md
+|-- docker
+    |-- Dockerfile.fastapi
+    |-- Dockerfile.ollama
+    |-- docker-compose.yml
+|-- elasticsearch_index_check.py
+|-- elasticsearch_setup.py
+|-- notebooks
+|-- project_req.md
+|-- rag_pipeline.py
+|-- readme.md
+|-- src
+    |-- __init__.py
+    |-- api
+        |-- main.py
+    |-- evaluation
+        |-- metrics.py
+    |-- ingestion
+        |-- __init__.py
+        |-- elasticsearch_ingestion.py
+    |-- models
+        |-- __init__.py
+        |-- ollama_interface.py
+    |-- pipeline
+        |-- __init__.py
+        |-- rag_pipeline.py
+    |-- static
+        |-- index.html
+    |-- utils
+        |-- __init__.py
+        |-- config.py
+        |-- logging_config.py
+|-- tests

@@ -1,0 +1,12 @@
+FROM python:3.10
+
+WORKDIR /app
+
+COPY Pipfile Pipfile.lock ./
+RUN pip install pipenv && pipenv install --system --deploy
+
+COPY . .
+
+RUN pip install scikit-learn sentence-transformers aiofiles
+
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

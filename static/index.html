@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e SRD Assistant</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #chat-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        #query-input {
+            width: 70%;
+            padding: 10px;
+        }
+        #submit-button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>D&D 5e SRD Assistant</h1>
+    <div id="chat-container"></div>
+    <input type="text" id="query-input" placeholder="Ask a question...">
+    <button id="submit-button">Submit</button>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const queryInput = document.getElementById('query-input');
+        const submitButton = document.getElementById('submit-button');
+
+        submitButton.addEventListener('click', async () => {
+            const query = queryInput.value;
+            if (!query) return;
+
+            // Display user query
+            chatContainer.innerHTML += `<p><strong>You:</strong> ${query}</p>`;
+            queryInput.value = '';
+
+            try {
+                const response = await axios.post('/query', { text: query });
+                const { original_query, rewritten_query, results } = response.data;
+
+                // Display assistant response
+                chatContainer.innerHTML += `<p><strong>Assistant:</strong></p>`;
+                chatContainer.innerHTML += `<p>Original query: ${original_query}</p>`;
+                chatContainer.innerHTML += `<p>Rewritten query: ${rewritten_query}</p>`;
+                chatContainer.innerHTML += `<p>Top results:</p>`;
+                chatContainer.innerHTML += `<ul>`;
+                results.forEach(result => {
+                    chatContainer.innerHTML += `<li>${result.title}: ${result.content.substring(0, 100)}...</li>`;
+                });
+                chatContainer.innerHTML += `</ul>`;
+            } catch (error) {
+                console.error('Error:', error);
+                chatContainer.innerHTML += `<p><strong>Error:</strong> ${error.message}</p>`;
+            }
+
+            // Scroll to bottom of chat container
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
+    </script>
+</body>
+</html>

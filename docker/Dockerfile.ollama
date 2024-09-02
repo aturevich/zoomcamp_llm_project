@@ -1,0 +1,10 @@
+FROM ollama/ollama:latest
+
+# Expose the default Ollama port
+EXPOSE 11434
+
+# Copy the startup script
+COPY start-ollama.sh /start-ollama.sh
+
+# Set the entrypoint to our startup script
+ENTRYPOINT ["/start-ollama.sh"]

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  ollama:
+    build:
+      context: .
+      dockerfile: Dockerfile.ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  fastapi:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.fastapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - elasticsearch
+      - ollama
+    volumes:
+      - ../:/app
+    environment:
+      - ES_HOST=http://elasticsearch:9200
+      - OLLAMA_URL=http://ollama:11434
+
+volumes:
+  esdata:
+  ollama_data:

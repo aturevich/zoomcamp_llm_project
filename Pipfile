@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "==2.26.0"
+python-dotenv = "==0.19.0"
+fastapi = "==0.68.0"
+uvicorn = "==0.15.0"
+elasticsearch = "==8.4.0"
+markdown = "==3.3.4"
+beautifulsoup4 = "==4.9.3"
+pydantic = "==1.8.2"
+scikit-learn = "==1.0.2"
+sentence-transformers = "==2.2.0"
+nltk = "==3.6.5"
+aiofiles = "*"
+numpy = "==1.21.2"
+huggingface_hub = "*"
+
+[dev-packages]
+pytest = "==6.2.5"
+black = "==21.7b0"
+flake8 = "==3.9.2"
+
+[requires]
+python_version = "3.10"
