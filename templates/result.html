@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>D&D 5e Q&A System - Result</title>
+</head>
+<body>
+    <h1>Answer</h1>
+    <p><strong>Question:</strong> {{ question }}</p>
+    <p><strong>Answer:</strong> {{ answer }}</p>
+    <h2>Was this answer helpful?</h2>
+    <form action="/feedback" method="post">
+        <input type="hidden" name="question" value="{{ question }}">
+        <input type="hidden" name="answer" value="{{ answer }}">
+        <input type="submit" name="rating" value="Yes">
+        <input type="submit" name="rating" value="No">
+    </form>
+    <h2>Retrieval Metrics</h2>
+    <pre>{{ retrieval_metrics }}</pre>
+</body>
+</html>

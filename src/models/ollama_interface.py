@@ -1,8 +1,14 @@
 import requests
+import os
+from dotenv import load_dotenv
 import logging
-from src.utils.config import OLLAMA_URL, OLLAMA_MODEL
 
 logger = logging.getLogger(__name__)
+
+load_dotenv()
+
+OLLAMA_URL = os.getenv('OLLAMA_URL', 'http://localhost:11434/api/generate')
+OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'mistral:latest')
 
 def query_ollama(prompt, model=OLLAMA_MODEL):
     url = OLLAMA_URL
@@ -25,18 +31,35 @@ def query_ollama(prompt, model=OLLAMA_MODEL):
         logger.error(f"Response content: {e.response.content if e.response else 'No response'}")
         raise Exception(f"Error querying Ollama: {str(e)}")
 
-def rag_query(question, context):
-    prompt = f"""
-Context: {context[:1000]}  # Limit context to first 1000 characters
+def rag_query(question, context, max_tokens=300):
+    prompt = f"""Given the following context, answer the question. If the answer is not in the context, say "I don't have enough information to answer that question."
+
+Context: {context}
 
 Question: {question}
 
-Please answer the question based on the given context. If the answer cannot be found in the context, please say "I don't have enough information to answer that question."
+Answer:"""
 
-Answer:
-"""
-    logger.info(f"RAG Query Prompt: {prompt}")
-    return query_ollama(prompt)
+    data = {
+        "model": OLLAMA_MODEL,
+        "prompt": prompt,
+        "stream": False,
+        "max_tokens": max_tokens
+    }
+
+    try:
+        logger.info(f"Sending request to Ollama API: {OLLAMA_URL}")
+        response = requests.post(OLLAMA_URL, json=data, timeout=30)  # Set a timeout
+        response.raise_for_status()
+        return response.json()['response']
+    except requests.RequestException as e:
+        logger.error(f"Error querying Ollama: {str(e)}")
+        return "I'm sorry, but I encountered an error while processing your request."
+
+def warmup_ollama():
+    logger.info("Warming up Ollama model...")
+    rag_query("Warmup question", "Warmup context")
+    logger.info("Ollama model warmed up")
 
 if __name__ == "__main__":
     # Test the Ollama interface

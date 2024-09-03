@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import hashlib
 import markdown
 from bs4 import BeautifulSoup
-from elasticsearch import Elasticsearch, helpers, NotFoundError
+from elasticsearch import Elasticsearch, helpers, NotFoundError, ConnectionError
 import logging
 import json
 import re
@@ -13,6 +13,7 @@ from sentence_transformers import SentenceTransformer, util
 from .query_rewriting import rewrite_and_expand_query
 from .query_processing import rewrite_user_query
 from .reranking import rerank_documents
+import time
 
 # Load environment variables
 load_dotenv()
@@ -21,25 +22,51 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Connect to Elasticsearch
-es_host = os.getenv('ES_HOST', 'http://localhost:9200')
-es_username = os.getenv('ES_USERNAME')
-es_password = os.getenv('ES_PASSWORD')
+# Elasticsearch configuration
+ES_HOST = os.getenv('ES_HOST', 'http://localhost:9200')
+ES_USERNAME = os.getenv('ES_USERNAME')
+ES_PASSWORD = os.getenv('ES_PASSWORD')
+ES_INDEX_NAME = os.getenv('ES_INDEX_NAME', 'dnd_5e_srd')
 
-if es_username and es_password:
-    es = Elasticsearch([es_host], basic_auth=(es_username, es_password))
-else:
-    es = Elasticsearch([es_host])
-    logger.warning("Elasticsearch security is not enabled. This is a security risk.")
+# Directory containing your Markdown files
+data_directory = os.getenv('DATA_DIRECTORY', './data/dnd_srd')
+
+def get_elasticsearch_client(max_retries=5, delay=5):
+    for i in range(max_retries):
+        try:
+            es = Elasticsearch(
+                [ES_HOST],
+                http_auth=(ES_USERNAME, ES_PASSWORD) if ES_USERNAME and ES_PASSWORD else None
+            )
+            es.info()
+            logger.info("Successfully connected to Elasticsearch")
+            return es
+        except ConnectionError:
+            logger.warning(f"Connection to Elasticsearch failed. Retrying in {delay} seconds...")
+            time.sleep(delay)
+    raise Exception("Failed to connect to Elasticsearch after multiple attempts")
+
+def delete_index_if_exists(es, index_name):
+    if es.indices.exists(index=index_name):
+        try:
+            es.indices.delete(index=index_name)
+            logger.info(f"Deleted existing index: {index_name}")
+        except Exception as e:
+            logger.error(f"Error deleting index: {e}")
+    else:
+        logger.info(f"Index {index_name} does not exist. No need to delete.")
+
+def initialize_elasticsearch():
+    es = get_elasticsearch_client()
+    if not es.indices.exists(index=ES_INDEX_NAME):
+        create_index_with_mapping()
+    return es
+
+# Global Elasticsearch client
+es = get_elasticsearch_client()
 
 # Initialize the SentenceTransformer model
 model = SentenceTransformer('all-MiniLM-L6-v2')
-
-# Define the index name
-index_name = os.getenv('ES_INDEX_NAME', 'dnd_5e_srd')
-
-# Define the data directory
-data_directory = os.path.join(os.path.dirname(__file__), '..', '..', 'data')
 
 def get_document_id(file_path):
     with open(file_path, 'rb') as file:
@@ -174,12 +201,12 @@ def create_index_with_mapping():
         }
     }
     
-    if es.indices.exists(index=index_name):
-        es.indices.delete(index=index_name)
-        logger.info(f"Deleted existing index: {index_name}")
+    if es.indices.exists(index=ES_INDEX_NAME):
+        es.indices.delete(index=ES_INDEX_NAME)
+        logger.info(f"Deleted existing index: {ES_INDEX_NAME}")
     
-    es.indices.create(index=index_name, body=mapping)
-    logger.info(f"Created index with mapping: {index_name}")
+    es.indices.create(index=ES_INDEX_NAME, body=mapping)
+    logger.info(f"Created index with mapping: {ES_INDEX_NAME}")
 
 def reindex_documents():
     # Get all documents from the data directory
@@ -198,7 +225,7 @@ def reindex_documents():
         doc_id = get_document_id(doc['file_path'])
         actions.append({
             "_op_type": "index",
-            "_index": index_name,
+            "_index": ES_INDEX_NAME,
             "_id": doc_id,
             "_source": doc
         })
@@ -240,11 +267,19 @@ def retrieve_relevant_documents(query, method='semantic', top_k=5, rerank=True, 
             },
             "size": top_k * 2  # Retrieve more results for reranking
         }
+    elif method == 'keyword':
+        # Implement keyword search
+        pass
+    elif method == 'bm25':
+        # Implement BM25 search (already done)
+        pass
+    elif method == 'hybrid':
+        # Implement hybrid search
+        pass
     else:
-        # Implement other search methods here
-        raise NotImplementedError(f"Search method '{method}' not implemented")
+        raise ValueError(f"Unknown retrieval method: {method}")
 
-    results = es.search(index=index_name, body=search_body)
+    results = es.search(index=ES_INDEX_NAME, body=search_body)
     documents = [hit['_source'] for hit in results['hits']['hits']]
     
     for doc, hit in zip(documents, results['hits']['hits']):
@@ -257,16 +292,6 @@ def retrieve_relevant_documents(query, method='semantic', top_k=5, rerank=True, 
 
     return documents
 
-def delete_index_if_exists():
-    if es.indices.exists(index=index_name):
-        try:
-            es.indices.delete(index=index_name)
-            logger.info(f"Deleted existing index: {index_name}")
-        except Exception as e:
-            logger.error(f"Error deleting index: {e}")
-    else:
-        logger.info(f"Index {index_name} does not exist. No need to delete.")
-
 def index_files(directory):
     indexed_count = 0
     for root, dirs, files in os.walk(directory):
@@ -277,7 +302,7 @@ def index_files(directory):
                 if document:
                     doc_id = get_document_id(file_path)
                     yield {
-                        "_index": index_name,
+                        "_index": ES_INDEX_NAME,
                         "_id": doc_id,
                         "_source": document
                     }
@@ -294,11 +319,8 @@ def count_nested_objects(actions):
         nested_count += len(doc.get('lists', []))
     return nested_count
 
-# Directory containing your Markdown files
-data_directory = os.getenv('DATA_DIRECTORY', './data/dnd_srd')
-
 # Delete existing index
-delete_index_if_exists()
+delete_index_if_exists(es, ES_INDEX_NAME)
 
 # Create index with mapping
 create_index_with_mapping()
@@ -320,21 +342,21 @@ except Exception as e:
 
 # Refresh the index
 try:
-    es.indices.refresh(index=index_name)
-    logger.info(f"Refreshed index: {index_name}")
+    es.indices.refresh(index=ES_INDEX_NAME)
+    logger.info(f"Refreshed index: {ES_INDEX_NAME}")
 except Exception as e:
     logger.error(f"Error refreshing index: {e}")
 
 # Print index stats
 try:
-    stats = es.indices.stats(index=index_name)
-    doc_count = stats['indices'][index_name]['total']['docs']['count']
+    stats = es.indices.stats(index=ES_INDEX_NAME)
+    doc_count = stats['indices'][ES_INDEX_NAME]['total']['docs']['count']
     logger.info(f"Total documents in index: {doc_count}")
     
     if doc_count != len(actions):
         logger.warning(f"Mismatch in document count. Expected: {len(actions)}, Actual: {doc_count}")
         
-    search_result = es.search(index=index_name, body={"query": {"match_all": {}}, "size": 1})
+    search_result = es.search(index=ES_INDEX_NAME, body={"query": {"match_all": {}}, "size": 1})
     logger.info(f"Sample document: {json.dumps(search_result['hits']['hits'][0]['_source'], indent=2)}")
 except Exception as e:
     logger.error(f"Error retrieving index stats: {e}")
@@ -345,7 +367,7 @@ logger.info(f"Total expected documents (including nested): {total_expected}")
 
 logger.info("Indexing process completed.")
 
-def keyword_search(query, index_name='dnd_5e_srd', top_k=3):
+def keyword_search(query, index_name=ES_INDEX_NAME, top_k=3):
     search_body = {
         "query": {
             "match": {
@@ -357,7 +379,7 @@ def keyword_search(query, index_name='dnd_5e_srd', top_k=3):
     results = es.search(index=index_name, body=search_body)
     return [hit['_source'] for hit in results['hits']['hits']]
 
-def bm25_search(query, index_name='dnd_5e_srd', top_k=3):
+def bm25_search(query, index_name=ES_INDEX_NAME, top_k=3):
     search_body = {
         "query": {
             "match": {
@@ -372,7 +394,7 @@ def bm25_search(query, index_name='dnd_5e_srd', top_k=3):
     results = es.search(index=index_name, body=search_body)
     return [hit['_source'] for hit in results['hits']['hits']]
 
-def semantic_search(query, index_name='dnd_5e_srd', top_k=3):
+def semantic_search(query, index_name=ES_INDEX_NAME, top_k=3):
     try:
         query_vector = model.encode(query).tolist()
         search_body = {
@@ -395,7 +417,7 @@ def semantic_search(query, index_name='dnd_5e_srd', top_k=3):
         logger.info("Falling back to keyword search")
         return keyword_search(query, index_name, top_k)
 
-def hybrid_search(query, index_name='dnd_5e_srd', top_k=3, alpha=0.5):
+def hybrid_search(query, index_name=ES_INDEX_NAME, top_k=3, alpha=0.5):
     try:
         query_vector = model.encode(query).tolist()
         search_body = {

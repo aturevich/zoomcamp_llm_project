@@ -1,12 +1,22 @@
-FROM python:3.10
+FROM python:3.10-slim
+
+# Install pipenv and dependencies for building some Python packages
+RUN pip install pipenv && \
+    apt-get update && \
+    apt-get install -y build-essential
 
 WORKDIR /app
 
-COPY Pipfile Pipfile.lock ./
-RUN pip install pipenv && pipenv install --system --deploy
+# Copy Pipfile and Pipfile.lock from the parent directory
+COPY ../Pipfile ../Pipfile.lock ./
 
-COPY . .
+# Install dependencies
+RUN pipenv install --system --deploy
 
-RUN pip install scikit-learn sentence-transformers aiofiles
+# Copy the rest of the application
+COPY ../src /app/src
+COPY ../templates /app/templates
+COPY ../static /app/static
 
-CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Run the application
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

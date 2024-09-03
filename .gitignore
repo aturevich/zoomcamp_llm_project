@@ -1,4 +1,4 @@
-.env
+.cursorignore
 __pycache__/
 *.pyc
 .vscode/

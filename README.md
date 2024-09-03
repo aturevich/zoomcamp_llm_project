@@ -133,7 +133,3 @@ If you encounter issues with environment variables not loading correctly, ensure
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-[Your chosen license]

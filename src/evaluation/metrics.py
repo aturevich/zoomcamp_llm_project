@@ -1,6 +1,8 @@
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 import numpy as np
+from nltk.translate.bleu_score import sentence_bleu
+from rouge import Rouge
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -35,5 +37,22 @@ def evaluate_relevance(question, retrieved_docs, top_k=3):
     padded_similarities = sorted_similarities[:top_k] + [0] * (top_k - len(sorted_similarities))
 
     return padded_similarities
+
+def evaluate_answer(reference_answer, generated_answer):
+    # BLEU score
+    reference = reference_answer.split()
+    candidate = generated_answer.split()
+    bleu_score = sentence_bleu([reference], candidate)
+    
+    # ROUGE score
+    rouge = Rouge()
+    rouge_scores = rouge.get_scores(generated_answer, reference_answer)[0]
+    
+    return {
+        "bleu_score": bleu_score,
+        "rouge_1_f": rouge_scores['rouge-1']['f'],
+        "rouge_2_f": rouge_scores['rouge-2']['f'],
+        "rouge_l_f": rouge_scores['rouge-l']['f']
+    }
 
 # You can add more evaluation metrics here, such as BLEU score for generated answers
