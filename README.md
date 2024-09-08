@@ -133,3 +133,7 @@ If you encounter issues with environment variables not loading correctly, ensure
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+chmod +x docker/wait-for-fastapi.sh
+
+mb add to makefile?

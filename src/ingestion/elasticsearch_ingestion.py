@@ -102,13 +102,18 @@ def parse_lists(soup):
     return lists
 
 def read_markdown_file(file_path):
+    logger.info(f"Reading markdown file: {file_path}")
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
         
+        # Convert Markdown to HTML
         html = markdown.markdown(content, extensions=['tables'])
+        
+        # Parse HTML with BeautifulSoup
         soup = BeautifulSoup(html, 'html.parser')
         
+        # Extract title
         title = soup.find(['h1', 'h2', 'h3'])
         title = title.text if title else os.path.splitext(os.path.basename(file_path))[0]
         
@@ -117,13 +122,18 @@ def read_markdown_file(file_path):
             title_tag = soup.find(['h1', 'h2', 'h3'])
             title_tag.extract()
         
+        # Extract main content
         main_content = soup.get_text(separator='\n', strip=True)
         
+        # Extract category, subcategory, and tags
         category, subcategory = get_category_subcategory(file_path)
         tags = extract_tags(content)
+        
+        # Parse tables and lists
         tables = parse_tables(soup)
         lists = parse_lists(soup)
         
+        # Create document
         document = {
             'title': title,
             'content': main_content,
@@ -136,9 +146,10 @@ def read_markdown_file(file_path):
             'content_vector': model.encode(main_content).tolist()
         }
         
+        logger.info(f"Successfully processed file: {file_path}")
         return document
     except Exception as e:
-        logger.error(f"Error processing file {file_path}: {e}")
+        logger.error(f"Error processing file {file_path}: {str(e)}")
         return None
 
 def create_index_with_mapping():
@@ -293,9 +304,13 @@ def retrieve_relevant_documents(query, method='semantic', top_k=5, rerank=True, 
     return documents
 
 def index_files(directory):
+    logger.info(f"Starting indexing process for directory: {directory}")
     indexed_count = 0
     for root, dirs, files in os.walk(directory):
+        logger.info(f"Scanning directory: {root}")
+        logger.info(f"Found {len(files)} files")
         for file in files:
+            logger.info(f"Processing file: {file}")
             if file.endswith('.md'):
                 file_path = os.path.join(root, file)
                 document = read_markdown_file(file_path)
@@ -307,7 +322,11 @@ def index_files(directory):
                         "_source": document
                     }
                     indexed_count += 1
-                    logger.info(f"Preparing to index document: {file_path}")
+                    logger.info(f"Prepared document for indexing: {file_path}")
+                else:
+                    logger.warning(f"Failed to process document: {file_path}")
+            else:
+                logger.info(f"Skipping non-markdown file: {file}")
     logger.info(f"Prepared {indexed_count} documents for indexing")
     return indexed_count
 
@@ -328,6 +347,9 @@ create_index_with_mapping()
 # Bulk index the documents
 try:
     actions = list(index_files(data_directory))
+    logger.info(f"Total actions prepared for indexing: {len(actions)}")
+    if len(actions) == 0:
+        logger.warning("No documents prepared for indexing. Check the data directory and file processing.")
     nested_objects = count_nested_objects(actions)
     logger.info(f"Prepared {len(actions)} top-level documents and {nested_objects} nested objects")
     success, failed = helpers.bulk(es, actions, stats_only=False, raise_on_error=False)

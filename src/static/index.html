@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D 5e Chatbot</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        #chatbox { height: 300px; border: 1px solid #ddd; overflow-y: auto; margin-bottom: 20px; padding: 10px; }
-        #user-input { width: 70%; padding: 5px; }
-        #send-button { padding: 5px 15px; }
-        .error { color: red; }
-        .context, .prompt { background-color: #f0f0f0; padding: 10px; margin-top: 10px; border-radius: 5px; }
-        .context h4, .prompt h4 { margin-top: 0; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
-    <h1>D&D 5e SRD Chatbot</h1>
-    <div id="chatbox"></div>
-    <input type="text" id="user-input" placeholder="Ask a D&D 5e question...">
-    <button id="send-button">Send</button>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-red-700 text-white p-4">
+        <h1 class="text-2xl font-bold">D&D 5e SRD Chatbot</h1>
+    </header>
+    <main class="flex-grow container mx-auto p-4 flex flex-col">
+        <div id="chatbox" class="bg-white rounded-lg shadow-md p-4 mb-4 h-96 overflow-y-auto flex-grow"></div>
+        <div class="flex">
+            <input type="text" id="user-input" placeholder="Ask a D&D 5e question..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+            <button id="send-button" class="bg-red-700 text-white px-4 py-2 rounded-r-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Send</button>
+        </div>
+    </main>
 
     <script>
         const chatbox = document.getElementById('chatbox');
@@ -27,25 +26,26 @@
 
         function addMessage(sender, message, isError = false) {
             const messageElement = document.createElement('div');
-            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-            if (isError) {
-                messageElement.classList.add('error');
-            }
+            messageElement.className = `mb-2 ${sender === 'You' ? 'text-right' : 'text-left'}`;
+            const innerElement = document.createElement('div');
+            innerElement.className = `inline-block p-2 rounded-lg ${sender === 'You' ? 'bg-red-100 text-red-800' : 'bg-gray-200 text-gray-800'} ${isError ? 'text-red-500' : ''}`;
+            innerElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            messageElement.appendChild(innerElement);
             chatbox.appendChild(messageElement);
             chatbox.scrollTop = chatbox.scrollHeight;
         }
 
         function addContext(context) {
             const contextElement = document.createElement('div');
-            contextElement.classList.add('context');
-            contextElement.innerHTML = `<h4>API Context:</h4>${context}`;
+            contextElement.className = 'bg-blue-100 text-blue-800 p-2 rounded-lg mb-2';
+            contextElement.innerHTML = `<h4 class="font-bold">API Context:</h4>${context}`;
             chatbox.appendChild(contextElement);
         }
 
         function addPrompt(prompt) {
             const promptElement = document.createElement('div');
-            promptElement.classList.add('prompt');
-            promptElement.innerHTML = `<h4>Full Prompt:</h4>${prompt}`;
+            promptElement.className = 'bg-green-100 text-green-800 p-2 rounded-lg mb-2';
+            promptElement.innerHTML = `<h4 class="font-bold">Full Prompt:</h4>${prompt}`;
             chatbox.appendChild(promptElement);
         }
 

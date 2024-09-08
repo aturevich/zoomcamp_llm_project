@@ -5,6 +5,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
     ports:
       - "9200:9200"
     volumes:
@@ -28,11 +29,34 @@ services:
     depends_on:
       - elasticsearch
       - ollama
-    volumes:
-      - ../:/app
     environment:
       - ES_HOST=http://elasticsearch:9200
-      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_URL=http://ollama:11434/api/generate
+      - OLLAMA_TIMEOUT=120  # Add this line to set a 120-second timeout
+    volumes:
+      - ../data:/app/data
+
+  ready_check:
+    image: busybox
+    depends_on:
+      - fastapi
+    volumes:
+      - ./wait-for-fastapi.sh:/wait-for-fastapi.sh
+    command: ["/wait-for-fastapi.sh", "fastapi", "8000"]
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - fastapi
 
 volumes:
   esdata:

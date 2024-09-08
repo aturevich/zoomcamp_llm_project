@@ -1,36 +1,54 @@
+import os
+import logging
 from fastapi import FastAPI, Form, Request, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.pipeline.rag_pipeline import run_rag_pipeline, collect_user_feedback
 from src.ingestion.elasticsearch_ingestion import retrieve_relevant_documents
 from src.ingestion.query_rewriting import rewrite_and_expand_query
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Allow requests from React app
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
+
+# Debug: Print current working directory and contents of static directory
+logger.debug(f"Current working directory: {os.getcwd()}")
+logger.debug(f"Contents of static directory: {os.listdir('static') if os.path.exists('static') else 'Directory not found'}")
 
 # Mount the static files directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Set up Jinja2 templates
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="/app/src/templates")
 
 class Query(BaseModel):
-    text: str
+    question: str
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.post("/query", response_class=HTMLResponse)
-async def query(request: Request, question: str = Form(...)):
-    result = run_rag_pipeline(question)
-    return templates.TemplateResponse("result.html", {
-        "request": request,
+@app.post("/query")
+async def query(query: Query):
+    result = run_rag_pipeline(query.question)
+    return {
         "question": result['question'],
         "answer": result['answer'],
         "retrieval_metrics": result['retrieval_metrics']
-    })
+    }
 
 @app.post("/feedback")
 async def feedback(question: str = Form(...), answer: str = Form(...), rating: str = Form(...)):

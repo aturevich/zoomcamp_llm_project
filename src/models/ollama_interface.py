@@ -10,26 +10,21 @@ load_dotenv()
 OLLAMA_URL = os.getenv('OLLAMA_URL', 'http://localhost:11434/api/generate')
 OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'mistral:latest')
 
-def query_ollama(prompt, model=OLLAMA_MODEL):
-    url = OLLAMA_URL
+def query_ollama(prompt, context):
     data = {
-        "model": model,
+        "model": OLLAMA_MODEL,
         "prompt": prompt,
+        "context": context,
         "stream": False
     }
-    logger.info(f"Using model: {model}")
-    logger.info(f"Sending request to: {url}")
-    logger.info(f"Request data: {data}")
+    
     try:
-        response = requests.post(url, json=data)
-        logger.info(f"Status Code: {response.status_code}")
-        logger.info(f"Response: {response.json()}")
+        response = requests.post(OLLAMA_URL, json=data)
         response.raise_for_status()
         return response.json()['response']
-    except requests.RequestException as e:
-        logger.error(f"Error details: {str(e)}")
-        logger.error(f"Response content: {e.response.content if e.response else 'No response'}")
-        raise Exception(f"Error querying Ollama: {str(e)}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error querying Ollama: {e}")
+        return None
 
 def rag_query(question, context, max_tokens=300):
     prompt = f"""Given the following context, answer the question. If the answer is not in the context, say "I don't have enough information to answer that question."
@@ -49,7 +44,7 @@ Answer:"""
 
     try:
         logger.info(f"Sending request to Ollama API: {OLLAMA_URL}")
-        response = requests.post(OLLAMA_URL, json=data, timeout=30)  # Set a timeout
+        response = requests.post(OLLAMA_URL, json=data, timeout=120)  # Set a timeout
         response.raise_for_status()
         return response.json()['response']
     except requests.RequestException as e:

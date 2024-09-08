@@ -12,11 +12,12 @@ def calculate_relevance_score(query, document):
     return cosine_similarity(query_embedding, doc_embedding)[0][0]
 
 def evaluate_retrieval(query, retrieved_docs):
-    scores = [calculate_relevance_score(query, doc['content']) for doc in retrieved_docs]
+    scores = [doc.get('_score', 0) for doc in retrieved_docs]
     return {
-        "average_relevance": sum(scores) / len(scores),
-        "max_relevance": max(scores),
-        "min_relevance": min(scores)
+        "num_retrieved": len(retrieved_docs),
+        "average_relevance": sum(scores) / len(scores) if scores else 0,
+        "max_relevance": max(scores) if scores else 0,
+        "min_relevance": min(scores) if scores else 0
     }
 
 def evaluate_relevance(question, retrieved_docs, top_k=3):

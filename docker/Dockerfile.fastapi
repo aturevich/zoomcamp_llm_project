@@ -15,8 +15,24 @@ RUN pipenv install --system --deploy
 
 # Copy the rest of the application
 COPY ../src /app/src
-COPY ../templates /app/templates
-COPY ../static /app/static
+COPY ../src/templates /app/src/templates
+COPY ../src/static /app/static
+
+# Debug: List contents of /app directory
+RUN echo "Contents of /app:" && ls -R /app
+
+# Pre-download the sentence transformer model
+RUN python -c "from src.models.sentence_transformer import get_sentence_transformer; get_sentence_transformer()"
+
+# Set environment variable for Ollama API URL
+ENV OLLAMA_API_URL=http://localhost:11434/api/generate
+
+# Copy and make the wait-for-fastapi.sh script executable
+COPY docker/wait-for-fastapi.sh /wait-for-fastapi.sh
+RUN chmod +x /wait-for-fastapi.sh
+
+# Create static directory and set permissions
+RUN mkdir -p /app/static && chmod 755 /app/static
 
 # Run the application
 CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
