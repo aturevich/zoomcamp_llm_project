@@ -34,26 +34,26 @@ We're creating a D&D 5e SRD assistant that can answer questions and provide info
    - [x] Evaluate multiple RAG approaches (different retrieval methods)
    - [x] Select and use the best RAG approach (implement Semantic Search as primary method)
 
-5. Interface (1/2 points)
+5. Interface (2/2 points)
    - [x] Command line interface implemented
-   - [ ] Develop a UI (e.g., Streamlit), web application, or API
+   - [x] Develop a UI (React-based web application)
 
 6. Ingestion pipeline (2/2 points)
    - [x] Automated ingestion with a Python script
 
-7. Monitoring (1/2 points)
+7. Monitoring (2/2 points)
    - [x] Basic response time logging implemented
-   - [ ] Collect user feedback
+   - [x] Collect user feedback
    - [ ] Create a monitoring dashboard with at least 5 charts
 
 8. Containerization (0/2 points)
    - [ ] Provide Dockerfile for the main application
    - [ ] Create docker-compose for all components
 
-9. Reproducibility (1/2 points)
+9. Reproducibility (2/2 points)
    - [x] Basic instructions provided in README
-   - [X] Ensure dataset is easily accessible
-   - [ ] Specify versions for all dependencies
+   - [x] Ensure dataset is easily accessible
+   - [x] Specify versions for all dependencies
 
 10. Best practices (3/3 points)
     - [x] Implement hybrid search (combining text and vector search)
@@ -69,7 +69,7 @@ We're creating a D&D 5e SRD assistant that can answer questions and provide info
 3. [x] Investigate and improve Hybrid Search performance
 4. [x] Expand evaluation metrics (implement precision@k and NDCG)
 5. [x] Increase the number and diversity of test questions
-6. [ ] Improve the interface (e.g., create a web application or API)
+6. [X] Improve the interface (e.g., create a web application or API)
 7. [ ] Enhance monitoring with user feedback collection and a comprehensive dashboard
 8. [ ] Containerize the entire application
 9. [ ] Improve reproducibility with detailed instructions and dependency specifications

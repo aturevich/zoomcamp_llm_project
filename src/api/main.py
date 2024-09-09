@@ -37,6 +37,11 @@ templates = Jinja2Templates(directory="/app/src/templates")
 class Query(BaseModel):
     question: str
 
+class FeedbackModel(BaseModel):
+    question: str
+    answer: str
+    rating: str
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -51,9 +56,9 @@ async def query(query: Query):
     }
 
 @app.post("/feedback")
-async def feedback(question: str = Form(...), answer: str = Form(...), rating: str = Form(...)):
-    user_rating = 1 if rating == "Yes" else 0
-    feedback = collect_user_feedback(question, answer, user_rating)
+async def feedback(feedback: FeedbackModel):
+    user_rating = 1 if feedback.rating == "Yes" else 0
+    result = collect_user_feedback(feedback.question, feedback.answer, user_rating)
     return {"message": "Thank you for your feedback!"}
 
 @app.post("/api/query")

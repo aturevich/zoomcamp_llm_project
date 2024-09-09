@@ -12,4 +12,5 @@ until nc -z "$host" "$port"; do
 done
 
 echo "FastAPI is ready!"
+echo "Access the chat at http://localhost:3000/chat"
 exec $cmd
