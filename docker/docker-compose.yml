@@ -32,7 +32,8 @@ services:
     environment:
       - ES_HOST=http://elasticsearch:9200
       - OLLAMA_URL=http://ollama:11434/api/generate
-      - OLLAMA_TIMEOUT=120  # Add this line to set a 120-second timeout
+      - OLLAMA_TIMEOUT=240  # Add this line to set a  timeout
+      - DATABASE_URL=postgresql://dnd_user:dnd_password@db/dnd_srd_db
     volumes:
       - ../data:/app/data
 
@@ -58,6 +59,18 @@ services:
     depends_on:
       - fastapi
 
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=dnd_srd_db
+      - POSTGRES_USER=dnd_user
+      - POSTGRES_PASSWORD=dnd_password
+    ports:
+      - "5432:5432"
+
 volumes:
   esdata:
   ollama_data:
+  postgres_data:

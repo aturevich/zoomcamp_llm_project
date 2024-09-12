@@ -3,4 +3,7 @@ __pycache__/
 *.pyc
 .vscode/
 .idea/
-
+frontend/node_modules/*
+frontend/build
+frontend/public/build
+node_modules

@@ -31,6 +31,10 @@ torch = {version = "*", index = "pytorch"}
 torchvision = {version = "*", index = "pytorch"}
 httpx = "*"
 prometheus-client = "==0.16.0"
+sqlalchemy = "*"
+psycopg2-binary = "*"
+alembic = "*"
+tenacity = "*"
 
 [dev-packages]
 pytest = "==6.2.5"

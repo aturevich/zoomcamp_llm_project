@@ -5,6 +5,8 @@ RUN pip install pipenv && \
     apt-get update && \
     apt-get install -y build-essential
 
+RUN apt-get install -y libpq-dev
+
 WORKDIR /app
 
 # Copy Pipfile and Pipfile.lock from the parent directory

@@ -1,4 +1,4 @@
-FROM ollama/ollama:latest
+FROM ollama/ollama:0.3.10
 
 # Expose the default Ollama port
 EXPOSE 11434
