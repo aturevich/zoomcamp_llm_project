@@ -10,6 +10,17 @@ services:
       - "9200:9200"
     volumes:
       - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  elasticsearch_ready:
+    image: curlimages/curl:latest
+    command: sh -c 'while [ "$$(curl -s -o /dev/null -w ''%{http_code}'' http://elasticsearch:9200)" != "200" ]; do sleep 5; done && echo "Elasticsearch is ready!"'
+    depends_on:
+      - elasticsearch
 
   ollama:
     build:
@@ -27,12 +38,14 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - elasticsearch
-      - ollama
+      elasticsearch_ready:
+        condition: service_completed_successfully
+      ollama:
+        condition: service_started
     environment:
       - ES_HOST=http://elasticsearch:9200
       - OLLAMA_URL=http://ollama:11434/api/generate
-      - OLLAMA_TIMEOUT=240  # Add this line to set a  timeout
+      - OLLAMA_TIMEOUT=240  
       - DATABASE_URL=postgresql://dnd_user:dnd_password@db/dnd_srd_db
     volumes:
       - ../data:/app/data

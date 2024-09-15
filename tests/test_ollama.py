@@ -1,11 +1,7 @@
 import requests
 
-url = 'http://localhost:11434/api/generate'
-data = {
-    "model": "mistral:latest",
-    "prompt": "Hello, world!",
-    "stream": False
-}
+url = "http://localhost:11434/api/generate"
+data = {"model": "mistral:latest", "prompt": "Hello, world!", "stream": False}
 
 try:
     response = requests.post(url, json=data, timeout=60)

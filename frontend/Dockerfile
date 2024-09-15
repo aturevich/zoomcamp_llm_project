@@ -8,31 +8,19 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Install dependencies
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
-# Copy the rest of the application code
+# Copy the rest of the application code, including node_modules
 COPY . .
 
 # Make sure react-scripts is in PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
-# Add more verbose output
-RUN echo "Node version:" && node --version && \
-    echo "Yarn version:" && yarn --version && \
-    echo "React version:" && yarn list react && \
-    echo "React DOM version:" && yarn list react-dom
-
-# Build the app
+# Build the application
 RUN yarn build
-
-# Remove Search.js from the build
-RUN rm -f build/static/js/*Search*.js build/static/css/*Search*.css
-
-# Install serve to run the application
-RUN yarn global add serve
 
 # Expose port 3000
 EXPOSE 3000
 
-# Start the application
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Start the application using a production-ready server
+CMD ["yarn", "start"]

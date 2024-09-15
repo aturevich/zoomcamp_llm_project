@@ -10,9 +10,8 @@ function Header() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           D&D 5e SRD Assistant
         </Typography>
-        <Button color="inherit" component={Link} to="/home">Home</Button>
-        <Button color="inherit" component={Link} to="/search">Search</Button>
         <Button color="inherit" component={Link} to="/chat">Chat</Button>
+        <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
       </Toolbar>
     </AppBar>
   );

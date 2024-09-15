@@ -3,8 +3,8 @@ from nltk.corpus import wordnet
 import re
 
 # Download required NLTK data
-nltk.download('wordnet', quiet=True)
-nltk.download('averaged_perceptron_tagger', quiet=True)
+nltk.download("wordnet", quiet=True)
+nltk.download("averaged_perceptron_tagger", quiet=True)
 
 # Custom D&D synonym dictionary
 dnd_synonyms = {
@@ -28,21 +28,54 @@ dnd_synonyms = {
 }
 
 # Words to not expand
-stop_words = set(["how", "to", "for", "in", "the", "a", "an", "and", "or", "but", "is", "are", "was", "were", "does", "best", "work", "rules", "explain", "calculate", "difference", "between", "build"])
+stop_words = set(
+    [
+        "how",
+        "to",
+        "for",
+        "in",
+        "the",
+        "a",
+        "an",
+        "and",
+        "or",
+        "but",
+        "is",
+        "are",
+        "was",
+        "were",
+        "does",
+        "best",
+        "work",
+        "rules",
+        "explain",
+        "calculate",
+        "difference",
+        "between",
+        "build",
+    ]
+)
+
 
 def get_dnd_synonyms(word):
     return dnd_synonyms.get(word.lower(), [])
+
 
 def get_wordnet_synonyms(word):
     synonyms = []
     for syn in wordnet.synsets(word):
         for lemma in syn.lemmas():
-            if lemma.name() != word and lemma.name() not in synonyms and "_" not in lemma.name():
+            if (
+                lemma.name() != word
+                and lemma.name() not in synonyms
+                and "_" not in lemma.name()
+            ):
                 synonyms.append(lemma.name())
     return synonyms[:1]  # Limit to top 1 synonym
 
+
 def rewrite_query(query):
-    words = re.findall(r'\w+', query.lower())
+    words = re.findall(r"\w+", query.lower())
     expanded_query = []
 
     for word in words:
@@ -52,17 +85,20 @@ def rewrite_query(query):
             dnd_syns = get_dnd_synonyms(word)
             if not dnd_syns:
                 wordnet_syns = get_wordnet_synonyms(word)
-                all_syns = wordnet_syns[:1]  # Use only one WordNet synonym if no D&D synonyms
+                all_syns = wordnet_syns[
+                    :1
+                ]  # Use only one WordNet synonym if no D&D synonyms
             else:
                 all_syns = dnd_syns[:2]  # Use up to two D&D synonyms
-            
+
             if all_syns:
                 expanded_query.append(f"({word} OR {' OR '.join(all_syns)})")
             else:
                 expanded_query.append(word)
 
-    rewritten_query = ' '.join(expanded_query)
+    rewritten_query = " ".join(expanded_query)
     return rewritten_query
+
 
 def expand_dnd_specific_terms(query):
     dnd_expansions = {
@@ -81,12 +117,13 @@ def expand_dnd_specific_terms(query):
         "con": "constitution",
         "int": "intelligence",
         "wis": "wisdom",
-        "cha": "charisma"
+        "cha": "charisma",
     }
 
     words = query.split()
     expanded_words = [dnd_expansions.get(word.lower(), word) for word in words]
-    return ' '.join(expanded_words)
+    return " ".join(expanded_words)
+
 
 def rewrite_and_expand_query(query):
     expanded_query = expand_dnd_specific_terms(query)

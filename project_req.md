@@ -44,11 +44,11 @@ We're creating a D&D 5e SRD assistant that can answer questions and provide info
 7. Monitoring (2/2 points)
    - [x] Basic response time logging implemented
    - [x] Collect user feedback
-   - [ ] Create a monitoring dashboard with at least 5 charts
+   - [x] Create a monitoring dashboard with at least 5 charts
 
-8. Containerization (0/2 points)
-   - [ ] Provide Dockerfile for the main application
-   - [ ] Create docker-compose for all components
+8. Containerization (2/2 points)
+   - [x] Provide Dockerfile for the main application
+   - [x] Create docker-compose for all components
 
 9. Reproducibility (2/2 points)
    - [x] Basic instructions provided in README
@@ -69,10 +69,10 @@ We're creating a D&D 5e SRD assistant that can answer questions and provide info
 3. [x] Investigate and improve Hybrid Search performance
 4. [x] Expand evaluation metrics (implement precision@k and NDCG)
 5. [x] Increase the number and diversity of test questions
-6. [X] Improve the interface (e.g., create a web application or API)
-7. [ ] Enhance monitoring with user feedback collection and a comprehensive dashboard
+6. [x] Improve the interface (e.g., create a web application or API)
+7. [x] Enhance monitoring with user feedback collection and a comprehensive dashboard
 8. [ ] Containerize the entire application
-9. [ ] Improve reproducibility with detailed instructions and dependency specifications
+9. [x] Improve reproducibility with detailed instructions and dependency specifications
 10. [x] Implement remaining best practices: document re-ranking
 11. [x] Implement remaining best practices: query rewriting
 12. [ ] Consider cloud deployment for bonus points
